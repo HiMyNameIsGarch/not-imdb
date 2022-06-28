@@ -1,12 +1,11 @@
-import { Center, Heading } from '@chakra-ui/react';
-import Layout from '../components/Layout';
+import Layout from "../components/Layout";
 
 export default function Home() {
   return (
     <Layout title="Moviebase">
-      <Center h="full">
-        <Heading as="h2">Moviebase is up and running</Heading>
-      </Center>
+      <div className="flex justify-center align-middle h-full">
+        <h1 className="text-3xl font-bold">Welcome to not-IMDb</h1>
+      </div>
     </Layout>
   );
 }
