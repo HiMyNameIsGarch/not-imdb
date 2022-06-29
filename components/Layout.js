@@ -1,96 +1,55 @@
-import Head from "next/head";
-import Link from "next/link";
-import {
-  Box,
-  Heading,
-  Button,
-  Container,
-  useDisclosure,
-  HStack,
-  Stack,
-  Spacer,
-  VStack,
-  Grid,
-} from "@chakra-ui/react";
-import { HamburgerIcon } from "@chakra-ui/icons";
+import Head from 'next/head';
+import Link from 'next/link';
+
+const defaultBtnProps = 'disabled:cursor-not-allowed disabled:opacity-60';
 
 const MenuItem = ({ href, children, ...props }) => (
-  <Link href={href} passHref>
-    <Button as="a" variant="link" {...props}>
-      {children}
-    </Button>
-  </Link>
+    <Link href={href} passHref>
+        <button as="a" variant="link" className={defaultBtnProps} {...props}>
+            {children}
+        </button>
+    </Link>
 );
 
-function Header() {
-  const { isOpen, onToggle } = useDisclosure();
-
-  return (
-    <Box bg="purple.500">
-      <Container>
-        <Stack
-          as="nav"
-          direction={["column", , "row"]}
-          justify="space-between"
-          wrap="wrap"
-          py="1.5rem"
-        >
-          <HStack justify="space-between">
-            <MenuItem href="/" mr={8}>
-              <Heading size="lg">Moviebase</Heading>
-            </MenuItem>
-
-            <Box display={["block", , "none"]} onClick={onToggle}>
-              <Button variant="outline">
-                <HamburgerIcon />
-              </Button>
-            </Box>
-          </HStack>
-
-          <Stack
-            direction={["column", , "row"]}
-            justify="start"
-            align={["start", , "center"]}
-            display={[isOpen ? "flex" : "none", , "flex"]}
-            spacing={4}
-          >
-            <MenuItem href="/search">Search</MenuItem>
-            <MenuItem href="/" disabled>
-              Watchlist
-            </MenuItem>
-            <MenuItem href="/" disabled>
-              History
-            </MenuItem>
-          </Stack>
-
-          <Spacer />
-
-          <Box display={[isOpen ? "block" : "none", , "block"]}>
-            <MenuItem href="/" variant="outline" disabled>
-              What to watch
-            </MenuItem>
-          </Box>
-        </Stack>
-      </Container>
-    </Box>
-  );
-}
+const Header = () => {
+    return (
+        <header className="p-4 bg-red-500 mb-5">
+            <div className="container mx-auto flex flex-row justify-between items-center text-white">
+                <div className="space-x-7 my-auto flex items-center">
+                    <MenuItem href="/">
+                        <h1 className="text-4xl">Not-IMDb</h1>
+                    </MenuItem>
+                    <MenuItem href="/search">Search</MenuItem>
+                    <MenuItem href="/" disabled>
+                        Watchlist
+                    </MenuItem>
+                    <MenuItem href="/" disabled>
+                        History
+                    </MenuItem>
+                </div>
+                <div>
+                    <MenuItem
+                        href="/"
+                        disabled
+                        className={`border-2 border-red-200 rounded-lg px-3 py-1 ${defaultBtnProps}`}
+                    >
+                        Watch List
+                    </MenuItem>
+                </div>
+            </div>
+        </header>
+    );
+};
 
 export default function Layout({ title, children }) {
-  return (
-    <>
-      <Head>
-        {title && <title>{title}</title>}
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-      <Grid minH="100vh">
-        <VStack w="full" align="stretch" spacing={8}>
-          <Header />
-          <Box as="main" h="full">
-            {children}
-          </Box>
-        </VStack>
-      </Grid>
-    </>
-  );
+    return (
+        <>
+            <Head>
+                {title && <title>{title}</title>}
+                <link rel="icon" href="/favicon.ico" />
+            </Head>
+            <Header />
+            <div className="h-screen">{children}</div>
+        </>
+    );
 }
