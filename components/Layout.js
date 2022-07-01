@@ -1,11 +1,16 @@
 import Head from 'next/head';
 import Link from 'next/link';
 
-const defaultBtnProps = 'disabled:cursor-not-allowed disabled:opacity-60';
-
-const MenuItem = ({ href, children, ...props }) => (
+const MenuItem = ({ href, children, className, ...props }) => (
     <Link href={href} passHref>
-        <button as="a" variant="link" className={defaultBtnProps} {...props}>
+        <button
+            as="a"
+            variant="link"
+            className={`disabled:cursor-not-allowed disabled:opacity-60 ${
+                className ?? ''
+            }`}
+            {...props}
+        >
             {children}
         </button>
     </Link>
@@ -31,7 +36,7 @@ const Header = () => {
                     <MenuItem
                         href="/"
                         disabled
-                        className={`border-2 border-red-200 rounded-lg px-3 py-1 ${defaultBtnProps}`}
+                        className="border-2 border-red-200 rounded-lg px-3 py-1"
                     >
                         Watch List
                     </MenuItem>
