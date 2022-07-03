@@ -3,7 +3,7 @@ import Head from 'next/head';
 import useSWR from 'swr';
 import { buildImageUrl } from '../../utils/api';
 import Layout from '../../components/Layout';
-// import HistoryButton from '../../components/HistoryButton';
+import HistoryButton from '../../components/HistoryButton';
 
 const Badge = ({ children }) => {
     return (
@@ -52,7 +52,11 @@ const MovieContent = () => {
                         {title}
                     </h1>
                     <div className="col-span-1">
-                        <h1 className="float-right border-pink-500 rounded-xl border-solid border-2 p-[0.3rem]">
+                        <h1
+                            className={`float-right border-pink-500 rounded-xl border-solid p-[0.3rem] text-sm ${
+                                data.release_date ? 'border-2' : 'border-0'
+                            }`}
+                        >
                             {data.release_date}
                         </h1>
                     </div>
@@ -62,9 +66,10 @@ const MovieContent = () => {
                         <Badge key={genre.id}>{genre.name}</Badge>
                     ))}
                 </div>
-                <div className="mt-3">
+                <div className="my-3">
                     <h1 className="text-base">{data.overview}</h1>
                 </div>
+                <HistoryButton />
             </div>
         </div>
     );
