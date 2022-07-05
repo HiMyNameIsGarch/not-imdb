@@ -25,20 +25,15 @@ const Header = () => {
                         <h1 className="text-4xl">Not-IMDb</h1>
                     </MenuItem>
                     <MenuItem href="/search">Search</MenuItem>
-                    <MenuItem href="/" disabled>
-                        Watchlist
-                    </MenuItem>
-                    <MenuItem href="/" disabled>
-                        History
-                    </MenuItem>
+                    <MenuItem href="/watchlist">Watch List</MenuItem>
+                    <MenuItem href="/history">History</MenuItem>
                 </div>
                 <div>
                     <MenuItem
-                        href="/"
-                        disabled
+                        href="/recommandations"
                         className="border-2 border-red-200 rounded-lg px-3 py-1"
                     >
-                        Watch List
+                        What to watch
                     </MenuItem>
                 </div>
             </div>

@@ -4,6 +4,7 @@ import useSWR from 'swr';
 import { buildImageUrl } from '../../utils/api';
 import Layout from '../../components/Layout';
 import HistoryButton from '../../components/HistoryButton';
+import WatchListButton from '../../components/WatchListButton';
 
 const Badge = ({ children }) => {
     return (
@@ -30,6 +31,7 @@ const MovieContent = () => {
     if (data.tagline) {
         title = title + ' - ' + data.tagline;
     }
+    console.log(data);
     return (
         <div className="grid grid-cols-12 gap-4">
             <Head>
@@ -70,6 +72,7 @@ const MovieContent = () => {
                     <h1 className="text-base">{data.overview}</h1>
                 </div>
                 <HistoryButton />
+                <WatchListButton />
             </div>
         </div>
     );
