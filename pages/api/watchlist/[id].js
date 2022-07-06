@@ -10,7 +10,6 @@ export default async function handler(req, res) {
 
     if (method === 'GET') {
         const watch = await WatchList.findOne({ id });
-
         if (watch) {
             res.status(200).json({ found: true });
         } else {
@@ -19,7 +18,15 @@ export default async function handler(req, res) {
     } else if (method === 'PUT') {
         const movie = await fetcher(getMovieUrl(id));
 
-        const history = new WatchList({ id, title: movie.title });
+        const history = new WatchList({
+            id: movie.id,
+            title: movie.title,
+            overview: movie.overview,
+            release_date: movie.release_date,
+            vote_average: movie.vote_average,
+            vote_count: movie.vote_count,
+            date: movie.date,
+        });
         await history.save();
 
         res.status(200).json(movie);
