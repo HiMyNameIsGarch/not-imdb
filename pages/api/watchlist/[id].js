@@ -18,7 +18,7 @@ export default async function handler(req, res) {
     } else if (method === 'PUT') {
         const movie = await fetcher(getMovieUrl(id));
 
-        const history = new WatchList({
+        const movieModel = new WatchList({
             id: movie.id,
             title: movie.title,
             overview: movie.overview,
@@ -27,7 +27,7 @@ export default async function handler(req, res) {
             vote_count: movie.vote_count,
             date: movie.date,
         });
-        await history.save();
+        await movieModel.save();
 
         res.status(200).json(movie);
     } else if (method === 'DELETE') {

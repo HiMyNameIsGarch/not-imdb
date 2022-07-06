@@ -40,7 +40,7 @@ const Main = () => {
 
 export default function WatchList() {
     return (
-        <Layout title="History">
+        <Layout title="Watch List">
             <Main />
         </Layout>
     );
