@@ -14,6 +14,10 @@ export default function HistoryButton() {
                 mutate(`/api/watchlist/${id}`, () =>
                     fetcher(`/api/watchlist/${id}`, {
                         method: data.found ? 'DELETE' : 'PUT',
+                    }).then((obj) => {
+                        if (obj.msg) {
+                            alert(obj.msg);
+                        }
                     }),
                 );
             }}

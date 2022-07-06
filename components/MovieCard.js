@@ -30,7 +30,7 @@ export default function MovieCard({
                     </p>
                 </div>
                 <div className="font-bold py-3 px-6 border-t border-gray-300 text-gray-600">
-                    {release_date || 'No release date'}
+                    {new Date(release_date).toDateString() || 'No release date'}
                 </div>
             </div>
         </div>

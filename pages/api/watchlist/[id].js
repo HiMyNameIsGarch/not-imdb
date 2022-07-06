@@ -1,5 +1,6 @@
 import { fetcher } from '../../../utils/api';
 import WatchList from '../../../models/WatchList';
+import History from '../../../models/History';
 import dbConnect from '../../../utils/dbConnect';
 import { getMovieUrl } from '../../../utils/api';
 
@@ -16,8 +17,14 @@ export default async function handler(req, res) {
             res.status(404).json({ found: false });
         }
     } else if (method === 'PUT') {
-        const movie = await fetcher(getMovieUrl(id));
+        const historyMovie = await History.findOne({ id });
 
+        if (historyMovie) {
+            res.status(400).json({ msg: 'Movie already in history' });
+            return;
+        }
+
+        const movie = await fetcher(getMovieUrl(id));
         const movieModel = new WatchList({
             id: movie.id,
             title: movie.title,

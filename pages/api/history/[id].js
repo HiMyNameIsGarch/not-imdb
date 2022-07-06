@@ -1,5 +1,6 @@
 import { fetcher } from '../../../utils/api';
 import History from '../../../models/History';
+import WatchList from '../../../models/WatchList';
 import dbConnect from '../../../utils/dbConnect';
 import { getMovieUrl } from '../../../utils/api';
 
@@ -29,6 +30,11 @@ export default async function handler(req, res) {
             date: movie.date,
         });
         await history.save();
+
+        const watchMovie = await WatchList.findOne({ id });
+        if (watchMovie) {
+            await WatchList.deleteOne({ id });
+        }
 
         res.status(200).json(movie);
     } else if (method === 'DELETE') {

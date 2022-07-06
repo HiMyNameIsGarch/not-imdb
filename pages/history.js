@@ -7,6 +7,9 @@ const Main = () => {
     if (!data) {
         return <h1 className="text-3xl text-center">Nothing to see here</h1>;
     }
+    if (data.length < 1) {
+        return <h1 className="text-3xl text-center">No movies in history</h1>;
+    }
     return (
         <div className="w-full max-w-7xl mx-auto px-8">
             <div className="flex items-stretch flex-col">
