@@ -1,6 +1,6 @@
 import { fetcher } from '../../../utils/api';
-import WatchList from '../../../models/WatchList';
-import History from '../../../models/History';
+import * as WatchList from '../../../models/WatchList';
+import * as History from '../../../models/History';
 import dbConnect from '../../../utils/dbConnect';
 import { getMovieUrl } from '../../../utils/api';
 
@@ -10,14 +10,14 @@ export default async function handler(req, res) {
     const { id } = req.query;
 
     if (method === 'GET') {
-        const watch = await WatchList.findOne({ id });
+        const watch = await WatchList.Get(id);
         if (watch) {
             res.status(200).json({ found: true });
         } else {
             res.status(404).json({ found: false });
         }
     } else if (method === 'PUT') {
-        const historyMovie = await History.findOne({ id });
+        const historyMovie = await History.Get(id);
 
         if (historyMovie) {
             res.status(400).json({ msg: 'Movie already in history' });
@@ -25,7 +25,7 @@ export default async function handler(req, res) {
         }
 
         const movie = await fetcher(getMovieUrl(id));
-        const movieModel = new WatchList({
+        await WatchList.Create({
             id: movie.id,
             title: movie.title,
             overview: movie.overview,
@@ -34,11 +34,10 @@ export default async function handler(req, res) {
             vote_count: movie.vote_count,
             date: movie.date,
         });
-        await movieModel.save();
 
         res.status(200).json(movie);
     } else if (method === 'DELETE') {
-        await WatchList.deleteOne({ id });
+        await WatchList.Delete(id);
         res.status(200).end('Ok');
     }
     res.status(400).end();

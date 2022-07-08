@@ -31,7 +31,6 @@ const MovieContent = () => {
     if (data.tagline) {
         title = title + ' - ' + data.tagline;
     }
-    console.log(data);
     return (
         <div className="grid grid-cols-12 gap-4">
             <Head>

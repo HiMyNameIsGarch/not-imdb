@@ -14,4 +14,22 @@ global.models.History =
         date: { type: Date, default: Date.now },
     });
 
-export default global.models.History;
+const History = global.models.History;
+
+// Methods
+export const Create = async (model) => {
+    const history = new History(model);
+    await history.save();
+};
+
+export const GetAll = async () => {
+    return await History.find();
+};
+
+export const Get = async (id) => {
+    return await History.findOne({ id });
+};
+
+export const Delete = async (id) => {
+    return await History.deleteOne({ id });
+};

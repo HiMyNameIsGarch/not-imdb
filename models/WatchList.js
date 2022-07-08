@@ -14,4 +14,22 @@ global.models.WatchList =
         date: { type: Date, default: Date.now },
     });
 
-export default global.models.WatchList;
+const WatchList = global.models.WatchList;
+
+// Methods
+export const Create = async (model) => {
+    const history = new WatchList(model);
+    await history.save();
+};
+
+export const GetAll = async () => {
+    return await WatchList.find();
+};
+
+export const Get = async (id) => {
+    return await WatchList.findOne({ id });
+};
+
+export const Delete = async (id) => {
+    return await WatchList.deleteOne({ id });
+};
