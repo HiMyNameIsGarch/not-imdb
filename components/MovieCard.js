@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { buildImageUrl } from 'utils/api';
 
 export default function MovieCard({
     id,
@@ -7,31 +8,20 @@ export default function MovieCard({
     release_date,
     vote_average,
     vote_count,
+    poster,
 }) {
+    console.log(id);
+    console.log(title);
+    console.log(overview);
+    console.log(release_date);
+    console.log(vote_average);
+    console.log(vote_count);
+    const posterPath = buildImageUrl(poster);
     return (
-        <div className="col-span-1">
-            <div className="font-bold py-3 px-6 border-b border-gray-300 text-gray-600 text-center">
-                {vote_average + ' / 10 ' + ' with ' + vote_count + ' votes'}
-            </div>
-            <div className="block rounded-lg shadow-lg bg-white max-w-sm text-center">
-                <div className="p-6">
-                    <Link href={`/movies/${id}`} passHref>
-                        <h5
-                            as="a"
-                            variant="link"
-                            className="text-gray-900 text-xl font-bold hover:underline hover:cursor-pointer mb-2"
-                        >
-                            {title}
-                        </h5>
-                    </Link>
-                    <p className="text-gray-700 text-base mb-1">
-                        {overview.slice(0, 75) || 'No description'}
-                        ...
-                    </p>
-                </div>
-                <div className="font-bold py-3 px-6 border-t border-gray-300 text-gray-600">
-                    {new Date(release_date).toDateString() || 'No release date'}
-                </div>
+        <div className="col-span-1 bg-pink-500 rounded-[4rem] flex flex-col items-center m-3">
+            <img className="bg-transparent rounded-t-[3rem]" src={posterPath} />
+            <div className="bg-red-500 text-center p-[1em] rounded-[4rem] bg-transparent flex items-center h-[15vh]">
+                <div className="text-3xl max-w-[13ch]">{title}</div>
             </div>
         </div>
     );

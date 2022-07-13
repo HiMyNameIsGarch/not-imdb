@@ -13,6 +13,7 @@ export default function MovieSection({ title, data }) {
                         release_date,
                         vote_average,
                         vote_count,
+                        poster_path,
                     }) => (
                         <MovieCard
                             key={id}
@@ -22,6 +23,7 @@ export default function MovieSection({ title, data }) {
                             release_date={release_date}
                             vote_average={vote_average}
                             vote_count={vote_count}
+                            poster={poster_path}
                         />
                     ),
                 )}
