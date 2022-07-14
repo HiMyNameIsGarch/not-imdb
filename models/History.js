@@ -7,11 +7,14 @@ global.models.History =
     mongoose.model('History', {
         id: { type: Number, required: true },
         title: { type: String, required: true },
-        overview: { type: String, required: true },
         release_date: { type: Date, required: true },
-        vote_average: { type: Number, required: true },
-        vote_count: { type: Number, required: true },
+        poster_path: { type: String, required: true },
         date: { type: Date, default: Date.now },
+
+        enter_count: { type: Number, default: 0 },
+        mark: { type: Number, required: true },
+        opinions: { type: String },
+        opinion_template: { type: String },
     });
 
 const History = global.models.History;
@@ -27,7 +30,19 @@ export const GetAll = async () => {
 };
 
 export const Get = async (id) => {
-    return await History.findOne({ id });
+    const movie = await History.findOne({ id });
+    if (!movie) return null;
+
+    movie.enter_count = movie.enter_count + 1;
+    await History.updateOne(
+        { id: id },
+        {
+            $set: {
+                enter_count: movie.enter_count,
+            },
+        },
+    );
+    return movie;
 };
 
 export const Delete = async (id) => {

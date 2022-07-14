@@ -1,27 +1,32 @@
 import Link from 'next/link';
 import { buildImageUrl } from 'utils/api';
 
-export default function MovieCard({
-    id,
-    title,
-    overview,
-    release_date,
-    vote_average,
-    vote_count,
-    poster,
-}) {
-    console.log(id);
-    console.log(title);
-    console.log(overview);
-    console.log(release_date);
-    console.log(vote_average);
-    console.log(vote_count);
+export default function MovieCard({ id, title, poster, release_date, genres }) {
+    const year = new Date(release_date).getFullYear();
     const posterPath = buildImageUrl(poster);
     return (
-        <div className="col-span-1 bg-pink-500 rounded-[4rem] flex flex-col items-center m-3">
-            <img className="bg-transparent rounded-t-[3rem]" src={posterPath} />
-            <div className="bg-red-500 text-center p-[1em] rounded-[4rem] bg-transparent flex items-center h-[15vh]">
-                <div className="text-3xl max-w-[13ch]">{title}</div>
+        <div className="col-span-1 bg-pink-500 m-2 rounded-[3rem]">
+            <div className="p-6">
+                <img
+                    className="bg-transparent rounded-[1rem] mb-3"
+                    src={posterPath}
+                />
+                <div className="top-auto bottom-auto">
+                    <div className="text-left text-white font-extrabold bottom-0">
+                        <Link href={`/movies/${id}`} passHref>
+                            <div
+                                as="a"
+                                variant="link"
+                                className="text-lg hover:underline hover:cursor-pointer"
+                            >
+                                {title}
+                            </div>
+                        </Link>
+                    </div>
+                    <div className="text-white bottom-0">
+                        <span className="text-sm">{year} - </span>
+                    </div>
+                </div>
             </div>
         </div>
     );

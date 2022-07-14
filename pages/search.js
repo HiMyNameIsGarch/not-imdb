@@ -71,22 +71,14 @@ function SearchResults() {
     return (
         <div className="grid grid-cols-3 gap-4">
             {data.results.map(
-                ({
-                    id,
-                    title,
-                    overview,
-                    release_date,
-                    vote_average,
-                    vote_count,
-                }) => (
+                ({ id, title, release_date, poster_path, genre_ids }) => (
                     <MovieCard
                         key={id}
                         id={id}
                         title={title}
-                        overview={overview}
                         release_date={release_date}
-                        vote_average={vote_average}
-                        vote_count={vote_count}
+                        poster={poster_path}
+                        genres={genre_ids}
                     />
                 ),
             )}

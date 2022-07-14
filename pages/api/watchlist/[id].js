@@ -1,8 +1,8 @@
-import { fetcher } from '../../../utils/api';
-import * as WatchList from '../../../models/WatchList';
-import * as History from '../../../models/History';
-import dbConnect from '../../../utils/dbConnect';
-import { getMovieUrl } from '../../../utils/api';
+import { fetcher } from 'utils/api';
+import * as WatchList from 'models/WatchList';
+import * as History from 'models/History';
+import dbConnect from 'utils/dbConnect';
+import { getMovieUrl } from 'utils/api';
 
 export default async function handler(req, res) {
     await dbConnect();
@@ -28,11 +28,8 @@ export default async function handler(req, res) {
         await WatchList.Create({
             id: movie.id,
             title: movie.title,
-            overview: movie.overview,
             release_date: movie.release_date,
-            vote_average: movie.vote_average,
-            vote_count: movie.vote_count,
-            date: movie.date,
+            poster_path: movie.poster_path,
         });
 
         res.status(200).json(movie);

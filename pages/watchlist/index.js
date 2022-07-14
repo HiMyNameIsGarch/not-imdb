@@ -1,6 +1,6 @@
-import Layout from '../components/Layout';
+import Layout from 'components/Layout';
 import useSWR from 'swr';
-import MovieCard from '../components/MovieCard';
+import MovieCard from 'components/MovieCard';
 
 const Main = () => {
     const { data } = useSWR('/api/watchlist');
@@ -22,19 +22,17 @@ const Main = () => {
                         ({
                             id,
                             title,
-                            overview,
                             release_date,
-                            vote_average,
-                            vote_count,
+                            poster_path,
+                            genre_ids,
                         }) => (
                             <MovieCard
                                 key={id}
                                 id={id}
                                 title={title}
-                                overview={overview}
                                 release_date={release_date}
-                                vote_average={vote_average}
-                                vote_count={vote_count}
+                                poster={poster_path}
+                                genres={genre_ids}
                             />
                         ),
                     )}

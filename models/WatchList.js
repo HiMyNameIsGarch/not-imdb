@@ -7,11 +7,11 @@ global.models.WatchList =
     mongoose.model('WatchList', {
         id: { type: Number, required: true },
         title: { type: String, required: true },
-        overview: { type: String, required: true },
         release_date: { type: Date, required: true },
-        vote_average: { type: Number, required: true },
-        vote_count: { type: Number, required: true },
+        poster_path: { type: String, required: true },
+        enter_count: { type: Number, default: 0 },
         date: { type: Date, default: Date.now },
+        impressions: { type: String },
     });
 
 const WatchList = global.models.WatchList;
@@ -23,11 +23,24 @@ export const Create = async (model) => {
 };
 
 export const GetAll = async () => {
-    return await WatchList.find();
+    const movies = await WatchList.find().sort({ enter_count: -1 });
+    return movies;
 };
 
 export const Get = async (id) => {
-    return await WatchList.findOne({ id });
+    const movie = await WatchList.findOne({ id });
+    if (!movie) return null;
+
+    movie.enter_count = movie.enter_count + 1;
+    await WatchList.updateOne(
+        { id: id },
+        {
+            $set: {
+                enter_count: movie.enter_count,
+            },
+        },
+    );
+    return movie;
 };
 
 export const Delete = async (id) => {
