@@ -5,6 +5,7 @@ import { buildImageUrl } from 'utils/api';
 import Layout from 'components/Layout';
 import HistoryButton from 'components/HistoryButton';
 import WatchListButton from 'components/WatchListButton';
+import Textarea from 'components/Textarea';
 
 const Badge = ({ children }) => {
     return (
@@ -31,6 +32,7 @@ const MovieContent = () => {
     if (data.tagline) {
         title = title + ' - ' + data.tagline;
     }
+    const mark = 9;
     return (
         <div className="grid grid-cols-12 gap-4">
             <Head>
@@ -72,6 +74,19 @@ const MovieContent = () => {
                 </div>
                 <HistoryButton />
                 <WatchListButton />
+                <div className="my-3">
+                    <h1 className="text-3xl">This film is a {mark}!</h1>
+                </div>
+                <div className="my-3">
+                    <Textarea
+                        title="My expectations were"
+                        placeholder="expectations"
+                        disabled
+                    />
+                </div>
+                <div className="my-3">
+                    <Textarea title="My review" placeholder="review" disabled />
+                </div>
             </div>
         </div>
     );

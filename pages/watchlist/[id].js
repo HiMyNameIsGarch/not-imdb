@@ -5,6 +5,7 @@ import { buildImageUrl } from 'utils/api';
 import Layout from 'components/Layout';
 import HistoryButton from 'components/HistoryButton';
 import WatchListButton from 'components/WatchListButton';
+import Textarea from 'components/Textarea';
 
 const Badge = ({ children }) => {
     return (
@@ -72,6 +73,20 @@ const MovieContent = () => {
                 </div>
                 <HistoryButton />
                 <WatchListButton />
+                <div className="my-3">
+                    <Textarea
+                        title="Expectations"
+                        placeholder="Future references"
+                        disabled
+                    />
+                </div>
+                <div className="my-3">
+                    <Textarea
+                        title="Future References"
+                        placeholder="Future references"
+                        disabled
+                    />
+                </div>
             </div>
         </div>
     );
