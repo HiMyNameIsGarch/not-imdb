@@ -1,7 +1,13 @@
 import Link from 'next/link';
 import { buildImageUrl } from 'utils/api';
 
-export default function MovieCard({ id, title, poster, release_date, genres }) {
+export default function MovieCard({
+    link,
+    title,
+    poster,
+    release_date,
+    genres,
+}) {
     const year = new Date(release_date).getFullYear();
     const posterPath = buildImageUrl(poster);
     return (
@@ -13,7 +19,7 @@ export default function MovieCard({ id, title, poster, release_date, genres }) {
                 />
                 <div className="top-auto bottom-auto">
                     <div className="text-left text-white font-extrabold bottom-0">
-                        <Link href={`/movies/${id}`} passHref>
+                        <Link href={link} passHref>
                             <div
                                 as="a"
                                 variant="link"

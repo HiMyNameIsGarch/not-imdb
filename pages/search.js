@@ -74,7 +74,7 @@ function SearchResults() {
                 ({ id, title, release_date, poster_path, genre_ids }) => (
                     <MovieCard
                         key={id}
-                        id={id}
+                        link={`movies/${id}`}
                         title={title}
                         release_date={release_date}
                         poster={poster_path}

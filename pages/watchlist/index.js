@@ -28,7 +28,7 @@ const Main = () => {
                         }) => (
                             <MovieCard
                                 key={id}
-                                id={id}
+                                link={`watchlist/${id}`}
                                 title={title}
                                 release_date={release_date}
                                 poster={poster_path}

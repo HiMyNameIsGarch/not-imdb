@@ -20,7 +20,7 @@ const Main = () => {
                     {data.map(({ id, title, release_date, poster_path }) => (
                         <MovieCard
                             key={id}
-                            id={id}
+                            link={`history/${id}`}
                             title={title}
                             release_date={release_date}
                             poster={poster_path}
