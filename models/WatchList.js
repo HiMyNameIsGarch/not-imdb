@@ -11,7 +11,9 @@ global.models.WatchList =
         poster_path: { type: String, required: true },
         enter_count: { type: Number, default: 0 },
         date: { type: Date, default: Date.now },
-        impressions: { type: String },
+
+        expectations: { type: String },
+        future_references: { type: String },
     });
 
 const WatchList = global.models.WatchList;

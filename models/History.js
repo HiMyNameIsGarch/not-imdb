@@ -10,11 +10,12 @@ global.models.History =
         release_date: { type: Date, required: true },
         poster_path: { type: String, required: true },
         date: { type: Date, default: Date.now },
-
         enter_count: { type: Number, default: 0 },
+
         mark: { type: Number, required: true },
-        opinions: { type: String },
-        opinion_template: { type: String },
+        expectations: { type: String },
+        review: { type: String },
+        review_template: { type: String },
     });
 
 const History = global.models.History;

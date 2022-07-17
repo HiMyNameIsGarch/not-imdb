@@ -7,7 +7,7 @@ global.models.VisitedMovie =
     mongoose.model('VisitedMovie', {
         movieId: { type: Number, required: true },
         visit_count: { type: Number, default: 1 },
-        first_visit: { type: Date, default: Date.now },
+        first_visit: { type: Date, default: Date.now() },
         last_visited: { type: Date, required: true },
     });
 
@@ -19,7 +19,7 @@ export const Log = async (movieId) => {
         const visited = new VisitedMovie({
             movieId: movieId,
             visit_count: 1,
-            last_visited: Date.now,
+            last_visited: Date.now(),
         });
         await visited.save();
     } else {
@@ -29,7 +29,7 @@ export const Log = async (movieId) => {
             {
                 $set: {
                     visit_count: movie.visit_count,
-                    last_visited: Date.now,
+                    last_visited: Date.now(),
                 },
             },
         );
