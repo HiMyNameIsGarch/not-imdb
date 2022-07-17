@@ -29,13 +29,15 @@ export default function Modal({ open, onClose, children }) {
                     className={`fixed inset-0 bg-black ${
                         open ? 'opacity-50' : 'pointer-events-none opacity-0'
                     } transition-opacity duration-300 ease-in-out`}
-                    onClick={onClose}
+                    onClick={() => {
+                        onClose();
+                    }}
                 />
 
                 {/* content */}
 
                 <div
-                    className={`relative p-8 bg-white w-full max-w-md m-auto flex-col flex rounded-lg ${
+                    className={`relative p-8 bg-white w-full max-w-2xl m-auto flex-col flex rounded-lg ${
                         open ? 'opacity-100' : 'pointer-events-none opacity-0'
                     }`}
                 >
