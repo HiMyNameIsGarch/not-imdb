@@ -5,7 +5,6 @@ import { buildImageUrl } from 'utils/api';
 import Layout from 'components/Layout';
 import HistoryButton from 'components/HistoryButton';
 import Textarea from 'components/Textarea';
-import { useEffect } from 'react';
 
 const Badge = ({ children }) => {
     return (
@@ -20,12 +19,6 @@ const MovieContent = () => {
     const { data, error } = useSWR(id && `/api/movies/${id}`);
     const { data: history } = useSWR(id && `/api/history/${id}`);
 
-    useEffect(() => {
-        if (!history) {
-            Router.push(`/movies/${id}`);
-        }
-    }, [history]);
-
     if (error) {
         return (
             <h1 className="bg-red-500">
@@ -33,7 +26,7 @@ const MovieContent = () => {
             </h1>
         );
     }
-    if (!data) {
+    if (!data || !history) {
         return <h1>In progress...</h1>;
     }
     const title = data.title;

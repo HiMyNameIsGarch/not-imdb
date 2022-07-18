@@ -16,7 +16,7 @@ const Badge = ({ children }) => {
 const MovieContent = () => {
     const { id } = useRouter().query;
     const { data, error } = useSWR(id && `/api/movies/${id}`);
-    const isInHistory = false;
+    const { data: hist } = useSWR(id && `/api/history/${id}`);
 
     if (error) {
         return (
@@ -72,7 +72,7 @@ const MovieContent = () => {
                     <h1 className="text-base">{data.overview}</h1>
                 </div>
                 <HistoryButton />
-                <WatchListButton />
+                {!hist ? <WatchListButton /> : <div />}
             </div>
         </div>
     );

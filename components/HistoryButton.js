@@ -1,4 +1,4 @@
-import { useRouter } from 'next/router';
+import Router, { useRouter } from 'next/router';
 import HistoryModal from 'components/HistoryModal';
 import useSWR, { useSWRConfig } from 'swr';
 import { fetcher } from '../utils/api';
@@ -10,10 +10,6 @@ export default function HistoryButton() {
     const { data } = useSWR(`/api/history/${id}`);
     const { mutate } = useSWRConfig();
 
-    function onClose() {
-        setOpen(false);
-    }
-
     function handleSubmit(formData) {
         mutate(`/api/history/${id}`, () =>
             fetcher(`/api/history/${id}`, {
@@ -23,6 +19,9 @@ export default function HistoryButton() {
                     'Content-Type': 'application/json',
                 },
             }).then(() => {
+                if (data) {
+                    Router.push('/');
+                }
                 setOpen(false);
             }),
         );
@@ -45,7 +44,7 @@ export default function HistoryButton() {
             </button>
             <HistoryModal
                 isOpen={open}
-                onClose={() => onClose()}
+                onClose={() => setOpen(false)}
                 onSubmit={handleSubmit}
             />
         </div>

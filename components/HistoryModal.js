@@ -1,14 +1,18 @@
-import PopupModal from 'components/PopupModal';
-import { useState } from 'react';
-import Textarea from 'components/Textarea';
 import FormButton from 'components/FormButton';
 import FormLabel from 'components/FormLabel';
+import PopupModal from 'components/PopupModal';
+import Textarea from 'components/Textarea';
+import { useState, useEffect } from 'react';
+import useSWR from 'swr';
+import Router, { useRouter } from 'next/router';
 
 const defaultMarkMsg = 'Give it a mark!';
 const defaultMarkValue = 5;
 const getMarkText = (value) => defaultMarkMsg + ' -> ' + value;
 
 export default function DataModal({ isOpen, onClose, onSubmit }) {
+    const { id } = useRouter().query;
+    const { data } = useSWR(`/api/watchlist/${id}`);
     const [markMsg, setMarkMsg] = useState(getMarkText(defaultMarkValue));
     const [state, setState] = useState({
         mark: defaultMarkValue,
@@ -16,9 +20,19 @@ export default function DataModal({ isOpen, onClose, onSubmit }) {
         review: '',
     });
 
+    useEffect(() => {
+        if (data?.expectations) {
+            setState({
+                ...state,
+                ['expectations']: data.expectations,
+            });
+        }
+    }, [data]);
+
     function submit(e) {
         e.preventDefault();
         onSubmit(state);
+        Router.push(`/history/${id}`);
     }
 
     const handleChange = (e) => {
@@ -44,19 +58,21 @@ export default function DataModal({ isOpen, onClose, onSubmit }) {
                     min="1"
                     max="10"
                     onChange={handleChange}
+                    defaultValue={state.mark}
                 />
                 <Textarea
                     title="Expectations"
                     placeholder="Expectations"
                     onBlur={handleChange}
                     name="expectations"
+                    defaultValue={state.expectations}
                 />
                 <Textarea
                     title="Review"
                     placeholder="Write here your opinion"
                     onBlur={handleChange}
                     name="review"
-                />
+                />{' '}
                 <FormButton title="Submit" onSubmit={submit} />
             </form>
         </PopupModal>

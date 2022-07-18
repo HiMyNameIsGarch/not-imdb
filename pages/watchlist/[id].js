@@ -6,8 +6,6 @@ import Layout from 'components/Layout';
 import HistoryButton from 'components/HistoryButton';
 import WatchListButton from 'components/WatchListButton';
 import Textarea from 'components/Textarea';
-import Router from 'next/router';
-import { useEffect } from 'react';
 
 const Badge = ({ children }) => {
     return (
@@ -21,11 +19,6 @@ const MovieContent = () => {
     const { id } = useRouter().query;
     const { data, error } = useSWR(id && `/api/movies/${id}`);
     const { data: watch } = useSWR(id && `/api/watchlist/${id}`);
-    useEffect(() => {
-        if (!watch) {
-            Router.push(`/movies/${id}`);
-        }
-    }, [watch]);
 
     if (error) {
         return (
@@ -34,7 +27,7 @@ const MovieContent = () => {
             </h1>
         );
     }
-    if (!data) {
+    if ((!data, !watch)) {
         return <h1>In progress...</h1>;
     }
     const title = data.title;

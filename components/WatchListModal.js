@@ -2,14 +2,17 @@ import PopupModal from 'components/PopupModal';
 import { useState } from 'react';
 import Textarea from 'components/Textarea';
 import FormButton from 'components/FormButton';
+import Router, { useRouter } from 'next/router';
 
 export default function DataModal({ isOpen, onClose, onSubmit }) {
+    const { id } = useRouter().query;
     const [expectations, setExpectations] = useState('');
     const [references, setReferences] = useState('');
 
     function submit(e) {
         e.preventDefault();
         onSubmit({ expectations, references });
+        Router.push(`/watchlist/${id}`);
     }
 
     function expectationsBlur(e) {

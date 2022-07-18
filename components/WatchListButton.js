@@ -2,17 +2,13 @@ import DataModal from 'components/WatchListModal';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import useSWR, { useSWRConfig } from 'swr';
-import { fetcher } from '../utils/api';
+import { fetcher } from 'utils/api';
 
 export default function WatchListButton() {
     const [open, setOpen] = useState(false);
     const { id } = useRouter().query;
     const { data } = useSWR(`/api/watchlist/${id}`);
     const { mutate } = useSWRConfig();
-
-    function onClose() {
-        setOpen(false);
-    }
 
     function handleSubmit(formData) {
         mutate(`/api/watchlist/${id}`, () =>
@@ -34,7 +30,6 @@ export default function WatchListButton() {
     disabled:cursor-not-allowed`}
                 onClick={() => {
                     if (!data) {
-                        console.log('set me free');
                         setOpen(true);
                         return;
                     }
@@ -45,7 +40,7 @@ export default function WatchListButton() {
             </button>
             <DataModal
                 isOpen={open}
-                onClose={() => onClose()}
+                onClose={() => setOpen(false)}
                 onSubmit={handleSubmit}
             />
         </div>
