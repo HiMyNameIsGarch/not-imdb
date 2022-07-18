@@ -10,12 +10,11 @@ global.models.History =
         release_date: { type: Date, required: true },
         poster_path: { type: String, required: true },
         date: { type: Date, default: Date.now },
-        enter_count: { type: Number, default: 0 },
+        enter_count: { type: Number, default: 1 },
 
         mark: { type: Number, required: true },
         expectations: { type: String },
         review: { type: String },
-        review_template: { type: String },
     });
 
 const History = global.models.History;
@@ -32,7 +31,7 @@ export const GetAll = async () => {
 
 export const Get = async (id) => {
     const movie = await History.findOne({ id });
-    if (!movie) return null;
+    if (movie === null) return null;
 
     movie.enter_count = movie.enter_count + 1;
     await History.updateOne(
@@ -48,4 +47,8 @@ export const Get = async (id) => {
 
 export const Delete = async (id) => {
     return await History.deleteOne({ id });
+};
+
+export const Is = async (id) => {
+    return (await History.findOne({ id })) !== null;
 };

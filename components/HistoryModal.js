@@ -14,7 +14,6 @@ export default function DataModal({ isOpen, onClose, onSubmit }) {
         mark: defaultMarkValue,
         expectations: '',
         review: '',
-        reviewTemplate: '',
     });
 
     function submit(e) {
@@ -57,12 +56,6 @@ export default function DataModal({ isOpen, onClose, onSubmit }) {
                     placeholder="Write here your opinion"
                     onBlur={handleChange}
                     name="review"
-                />
-                <Textarea
-                    title="Review template"
-                    placeholder="Template here"
-                    onBlur={handleChange}
-                    name="reviewTemplate"
                 />
                 <FormButton title="Submit" onSubmit={submit} />
             </form>

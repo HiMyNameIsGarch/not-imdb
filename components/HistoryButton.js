@@ -14,14 +14,16 @@ export default function HistoryButton() {
         setOpen(false);
     }
 
-    function handleSubmit(data) {
-        console.log('data', data);
-        const b = false;
-        setOpen(false);
-        if (b === false) return; // for now block execution of fetcher
+    function handleSubmit(formData) {
         mutate(`/api/history/${id}`, () =>
             fetcher(`/api/history/${id}`, {
-                method: data.found ? 'DELETE' : 'PUT',
+                method: data ? 'DELETE' : 'PUT',
+                body: JSON.stringify(formData),
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            }).then(() => {
+                setOpen(false);
             }),
         );
     }
@@ -32,10 +34,14 @@ export default function HistoryButton() {
                 className={`bg-transparent text-blue-700 font-semibold py-2 px-4 border border-blue-500 rounded
                 disabled:cursor-not-allowed`}
                 onClick={() => {
-                    setOpen(true);
+                    if (!data) {
+                        setOpen(true);
+                        return;
+                    }
+                    handleSubmit(null);
                 }}
             >
-                {data?.found ? 'Remove from history' : 'Yeah, I watched this!'}
+                {data ? 'Remove from history' : 'Yeah, I watched this!'}
             </button>
             <HistoryModal
                 isOpen={open}

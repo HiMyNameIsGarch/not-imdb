@@ -11,23 +11,26 @@ export default async function handler(req, res) {
 
     if (method === 'GET') {
         const history = await History.Get(id);
-
-        if (history) {
-            res.status(200).json({ found: true });
-        } else {
-            res.status(404).json({ found: false });
+        if (history === null) {
+            res.status(404).json(history);
+            return;
         }
+        res.status(200).json(history);
     } else if (method === 'PUT') {
         const movie = await fetcher(getMovieUrl(id));
 
+        const { body } = req;
         await History.Create({
             id: movie.id,
             title: movie.title,
-            overview: movie.overview,
             release_date: movie.release_date,
-            vote_average: movie.vote_average,
-            vote_count: movie.vote_count,
+            poster_path: movie.poster_path,
             date: movie.date,
+            enter_count: 1,
+
+            mark: body.mark,
+            expectations: body.expectations,
+            review: body.review,
         });
 
         const watchMovie = await WatchList.Get(id);

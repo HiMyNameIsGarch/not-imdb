@@ -1,10 +1,10 @@
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 import useSWR from 'swr';
-import { buildImageUrl } from '../../utils/api';
-import Layout from '../../components/Layout';
-import HistoryButton from '../../components/HistoryButton';
-import WatchListButton from '../../components/WatchListButton';
+import { buildImageUrl } from 'utils/api';
+import Layout from 'components/Layout';
+import HistoryButton from 'components/HistoryButton';
+import WatchListButton from 'components/WatchListButton';
 
 const Badge = ({ children }) => {
     return (
@@ -16,6 +16,7 @@ const Badge = ({ children }) => {
 const MovieContent = () => {
     const { id } = useRouter().query;
     const { data, error } = useSWR(id && `/api/movies/${id}`);
+    const isInHistory = false;
 
     if (error) {
         return (

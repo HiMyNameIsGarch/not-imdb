@@ -17,7 +17,7 @@ export default function WatchListButton() {
     function handleSubmit(formData) {
         mutate(`/api/watchlist/${id}`, () =>
             fetcher(`/api/watchlist/${id}`, {
-                method: data !== null ? 'DELETE' : 'PUT',
+                method: data ? 'DELETE' : 'PUT',
                 body: JSON.stringify(formData),
                 headers: {
                     'Content-Type': 'application/json',
@@ -33,16 +33,15 @@ export default function WatchListButton() {
                 className={`bg-transparent text-blue-700 font-semibold py-2 px-4 border border-blue-500 rounded
     disabled:cursor-not-allowed`}
                 onClick={() => {
-                    if (data !== null) {
+                    if (!data) {
+                        console.log('set me free');
                         setOpen(true);
                         return;
                     }
                     handleSubmit(null);
                 }}
             >
-                {data !== null
-                    ? "Maybe I don't wanna watch this!"
-                    : 'Add to WatchList'}
+                {data ? "Maybe I don't wanna watch this!" : 'Add to WatchList'}
             </button>
             <DataModal
                 isOpen={open}

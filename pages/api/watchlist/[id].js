@@ -38,7 +38,7 @@ export default async function handler(req, res) {
         res.status(200).json(movie);
     } else if (method === 'DELETE') {
         await WatchList.Delete(id);
-        res.status(200).json('Ok');
+        res.status(200).json({ msg: 'Ok' });
     }
     res.status(400).end();
 }

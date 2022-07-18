@@ -4,8 +4,8 @@ import useSWR from 'swr';
 import { buildImageUrl } from 'utils/api';
 import Layout from 'components/Layout';
 import HistoryButton from 'components/HistoryButton';
-import WatchListButton from 'components/WatchListButton';
 import Textarea from 'components/Textarea';
+import { useEffect } from 'react';
 
 const Badge = ({ children }) => {
     return (
@@ -14,9 +14,17 @@ const Badge = ({ children }) => {
         </span>
     );
 };
+
 const MovieContent = () => {
     const { id } = useRouter().query;
     const { data, error } = useSWR(id && `/api/movies/${id}`);
+    const { data: history } = useSWR(id && `/api/history/${id}`);
+
+    useEffect(() => {
+        if (!history) {
+            Router.push(`/movies/${id}`);
+        }
+    }, [history]);
 
     if (error) {
         return (
@@ -32,7 +40,7 @@ const MovieContent = () => {
     if (data.tagline) {
         title = title + ' - ' + data.tagline;
     }
-    const mark = 9;
+
     return (
         <div className="grid grid-cols-12 gap-4">
             <Head>
@@ -73,19 +81,24 @@ const MovieContent = () => {
                     <h1 className="text-base">{data.overview}</h1>
                 </div>
                 <HistoryButton />
-                <WatchListButton />
                 <div className="my-3">
-                    <h1 className="text-3xl">This film is a {mark}!</h1>
+                    <h1 className="text-3xl">This film is a {history.mark}!</h1>
                 </div>
                 <div className="my-3">
                     <Textarea
                         title="My expectations were"
                         placeholder="expectations"
+                        value={history.expectations}
                         disabled
                     />
                 </div>
                 <div className="my-3">
-                    <Textarea title="My review" placeholder="review" disabled />
+                    <Textarea
+                        title="My review"
+                        placeholder="review"
+                        value={history.review}
+                        disabled
+                    />
                 </div>
             </div>
         </div>
