@@ -14,18 +14,16 @@ export default function WatchListButton() {
         setOpen(false);
     }
 
-    function handleSubmit(data) {
-        console.log('data', data);
-        const b = false;
-        setOpen(false);
-        if (b === false) return;
+    function handleSubmit(formData) {
         mutate(`/api/watchlist/${id}`, () =>
             fetcher(`/api/watchlist/${id}`, {
-                method: data.found ? 'DELETE' : 'PUT',
-            }).then((obj) => {
-                if (obj.msg) {
-                    alert(obj.msg);
-                }
+                method: data !== null ? 'DELETE' : 'PUT',
+                body: JSON.stringify(formData),
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            }).then(() => {
+                setOpen(false);
             }),
         );
     }
@@ -35,10 +33,14 @@ export default function WatchListButton() {
                 className={`bg-transparent text-blue-700 font-semibold py-2 px-4 border border-blue-500 rounded
     disabled:cursor-not-allowed`}
                 onClick={() => {
-                    setOpen(true);
+                    if (data !== null) {
+                        setOpen(true);
+                        return;
+                    }
+                    handleSubmit(null);
                 }}
             >
-                {data?.found
+                {data !== null
                     ? "Maybe I don't wanna watch this!"
                     : 'Add to WatchList'}
             </button>

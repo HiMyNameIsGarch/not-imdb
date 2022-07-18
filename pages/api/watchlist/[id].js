@@ -11,11 +11,11 @@ export default async function handler(req, res) {
 
     if (method === 'GET') {
         const watch = await WatchList.Get(id);
-        if (watch) {
-            res.status(200).json({ found: true });
-        } else {
-            res.status(404).json({ found: false });
+        if (watch === null) {
+            res.status(404).json(watch);
+            return;
         }
+        res.status(200).json(watch);
     } else if (method === 'PUT') {
         const historyMovie = await History.Get(id);
 
@@ -25,17 +25,20 @@ export default async function handler(req, res) {
         }
 
         const movie = await fetcher(getMovieUrl(id));
+        const { body } = req;
         await WatchList.Create({
             id: movie.id,
             title: movie.title,
             release_date: movie.release_date,
             poster_path: movie.poster_path,
+            expectations: body.expectations,
+            future_references: body.references,
         });
 
         res.status(200).json(movie);
     } else if (method === 'DELETE') {
         await WatchList.Delete(id);
-        res.status(200).end('Ok');
+        res.status(200).json('Ok');
     }
     res.status(400).end();
 }

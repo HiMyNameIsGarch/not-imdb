@@ -17,6 +17,7 @@ const Badge = ({ children }) => {
 const MovieContent = () => {
     const { id } = useRouter().query;
     const { data, error } = useSWR(id && `/api/movies/${id}`);
+    const { data: watch } = useSWR(id && `/api/watchlist/${id}`);
 
     if (error) {
         return (
@@ -76,7 +77,8 @@ const MovieContent = () => {
                 <div className="my-3">
                     <Textarea
                         title="Expectations"
-                        placeholder="Future references"
+                        placeholder="Expectations"
+                        value={watch.expectations}
                         disabled
                     />
                 </div>
@@ -84,6 +86,7 @@ const MovieContent = () => {
                     <Textarea
                         title="Future References"
                         placeholder="Future references"
+                        value={watch.future_references}
                         disabled
                     />
                 </div>
