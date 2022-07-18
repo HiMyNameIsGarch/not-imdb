@@ -1,5 +1,5 @@
 import DataModal from 'components/WatchListModal';
-import { useRouter } from 'next/router';
+import Router, { useRouter } from 'next/router';
 import { useState } from 'react';
 import useSWR, { useSWRConfig } from 'swr';
 import { fetcher } from 'utils/api';
@@ -19,6 +19,9 @@ export default function WatchListButton() {
                     'Content-Type': 'application/json',
                 },
             }).then(() => {
+                if (data) {
+                    Router.push('/');
+                }
                 setOpen(false);
             }),
         );
