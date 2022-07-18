@@ -6,31 +6,27 @@ import Layout from 'components/Layout';
 import HistoryButton from 'components/HistoryButton';
 import WatchListButton from 'components/WatchListButton';
 import Textarea from 'components/Textarea';
-
-const Badge = ({ children }) => {
-    return (
-        <span className="inline-block border-2 border-solid border-pink-500 rounded-xl mr-2 text-xs font-semibold p-[0.3rem]">
-            {children}
-        </span>
-    );
-};
+import Badge from 'components/Badge';
 
 const MovieContent = () => {
     const { id } = useRouter().query;
     const { data, error } = useSWR(id && `/api/movies/${id}`);
-    const { data: watch } = useSWR(id && `/api/watchlist/${id}`);
+    const { data: watch, error: watchError } = useSWR(
+        id && `/api/watchlist/${id}`,
+    );
 
-    if (error) {
+    if (error || watchError) {
         return (
             <h1 className="bg-red-500">
                 Error fetching movie with ID {id}: {JSON.stringify(error)}
             </h1>
         );
     }
-    if ((!data, !watch)) {
+    if (!data | !watch) {
         return <h1>In progress...</h1>;
     }
     const title = data.title;
+
     if (data.tagline) {
         title = title + ' - ' + data.tagline;
     }

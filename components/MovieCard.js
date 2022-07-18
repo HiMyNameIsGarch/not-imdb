@@ -30,7 +30,7 @@ export default function MovieCard({
                         </Link>
                     </div>
                     <div className="text-white bottom-0">
-                        <span className="text-sm">{year} - </span>
+                        <span className="text-sm">{year}</span>
                     </div>
                 </div>
             </div>

@@ -5,21 +5,14 @@ import { buildImageUrl } from 'utils/api';
 import Layout from 'components/Layout';
 import HistoryButton from 'components/HistoryButton';
 import Textarea from 'components/Textarea';
-
-const Badge = ({ children }) => {
-    return (
-        <span className="inline-block border-2 border-solid border-pink-500 rounded-xl mr-2 text-xs font-semibold p-[0.3rem]">
-            {children}
-        </span>
-    );
-};
+import Badge from 'components/Badge';
 
 const MovieContent = () => {
     const { id } = useRouter().query;
     const { data, error } = useSWR(id && `/api/movies/${id}`);
-    const { data: history } = useSWR(id && `/api/history/${id}`);
+    const { data: history, histError } = useSWR(id && `/api/history/${id}`);
 
-    if (error) {
+    if (error || histError) {
         return (
             <h1 className="bg-red-500">
                 Error fetching movie with ID {id}: {JSON.stringify(error)}

@@ -27,5 +27,8 @@ export const getRecommandationFromMovie = (id) =>
 export const getSearchMovieUrl = (terms) =>
     `https://api.themoviedb.org/3/search/movie?api_key=${process.env.TMDB_API_KEY}&query=${terms}`;
 
+const defaultPoster =
+    'https://coldfeet-space.nyc3.cdn.digitaloceanspaces.com/wsb/2014/07/paramount_default_poster.png';
+
 export const buildImageUrl = (path, size = 'original') =>
-    `https://image.tmdb.org/t/p/${size}${path}`;
+    path ? `https://image.tmdb.org/t/p/${size}${path}` : defaultPoster;

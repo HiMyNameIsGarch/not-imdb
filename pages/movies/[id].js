@@ -5,14 +5,8 @@ import { buildImageUrl } from 'utils/api';
 import Layout from 'components/Layout';
 import HistoryButton from 'components/HistoryButton';
 import WatchListButton from 'components/WatchListButton';
+import Badge from 'components/Badge';
 
-const Badge = ({ children }) => {
-    return (
-        <span className="inline-block border-2 border-solid border-pink-500 rounded-xl mr-2 text-xs font-semibold p-[0.3rem]">
-            {children}
-        </span>
-    );
-};
 const MovieContent = () => {
     const { id } = useRouter().query;
     const { data, error } = useSWR(id && `/api/movies/${id}`);
