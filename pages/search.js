@@ -1,8 +1,9 @@
+import MovieSection from 'components/MovieSection';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import useSWR from 'swr';
-import Layout from '../components/Layout';
-import MovieCard from '../components/MovieCard';
+import Layout from 'components/Layout';
+import ProgressBar from 'components/ProgressBar';
 
 function SearchBar() {
     const router = useRouter();
@@ -37,7 +38,7 @@ function SearchBar() {
                 <div className="col-span-2 flex justify-center">
                     <button
                         type="submit"
-                        className="px-6 py-2.5 bg-green-500 text-white font-normal leading-tight uppercase rounded-full shadow-md hover:bg-green-600 hover:shadow-lg focus:bg-yellow-600 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-yellow-700 active:shadow-lg transition duration-150 ease-in-out"
+                        className="px-6 py-2.5 bg-pink-500 text-white font-normal leading-tight uppercase rounded-full shadow-md hover:bg-green-600 hover:shadow-lg focus:bg-yellow-600 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-yellow-700 active:shadow-lg transition duration-150 ease-in-out"
                     >
                         Movie Time!
                     </button>
@@ -57,43 +58,25 @@ function SearchResults() {
     }
     if (error) {
         return (
-            <h1 className="bg-red-500">
-                Error finding movies for {terms}: {JSON.stringify(error)}
-            </h1>
+            <ErrorMsg
+                errorStr={`Error fetching movie with ID ${id}: ${JSON.stringify(
+                    error,
+                )}`}
+            />
         );
     }
-    if (!data) {
-        return <h1>In progress...</h1>;
-    }
-    if (!data.results.length) {
-        return <h1>:(((( No results </h1>;
-    }
-    return (
-        <div className="grid grid-cols-3 gap-4">
-            {data.results.map(
-                ({ id, title, release_date, poster_path, genre_ids }) => (
-                    <MovieCard
-                        key={id}
-                        link={`movies/${id}`}
-                        title={title}
-                        release_date={release_date}
-                        poster={poster_path}
-                        genres={genre_ids}
-                    />
-                ),
-            )}
-        </div>
-    );
+    if (!data) return <ProgressBar />;
+    if (!data.results.length) return <h1 className="text-3xl">No results</h1>;
+
+    return <MovieSection title="" data={data.results} />;
 }
 
 export default function Search() {
     return (
         <Layout title="Search">
-            <div className="w-full max-w-7xl mx-auto px-8">
-                <div className="flex items-stretch flex-col">
-                    <SearchBar />
-                    <SearchResults />
-                </div>
+            <div className="flex items-stretch flex-col">
+                <SearchBar />
+                <SearchResults />
             </div>
         </Layout>
     );

@@ -1,17 +1,11 @@
 import Link from 'next/link';
 import { buildImageUrl } from 'utils/api';
 
-export default function MovieCard({
-    link,
-    title,
-    poster,
-    release_date,
-    genres,
-}) {
+export default function MovieCard({ link, title, poster, release_date }) {
     const year = new Date(release_date).getFullYear();
     const posterPath = buildImageUrl(poster);
     return (
-        <div className="col-span-1 bg-pink-500 m-2 rounded-[3rem]">
+        <div className="col-span-1 m-2 rounded-[3rem] bg-pink-600">
             <div className="p-6">
                 <img
                     className="bg-transparent rounded-[1rem] mb-3"

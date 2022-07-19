@@ -24,10 +24,8 @@ const RecommendMe = () => {
 export default function Recommandations() {
     return (
         <Layout title="What to watch">
-            <div className="w-full max-w-7xl mx-auto px-8">
-                <div className="flex items-stretch flex-col">
-                    <RecommendMe />
-                </div>
+            <div className="flex items-stretch flex-col">
+                <RecommendMe />
             </div>
         </Layout>
     );

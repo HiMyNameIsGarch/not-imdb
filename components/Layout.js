@@ -49,7 +49,9 @@ export default function Layout({ title, children }) {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
             <Header />
-            <div className="h-screen">{children}</div>
+            <div className="h-screen">
+                <div className="w-full max-w-7xl mx-auto px-8">{children}</div>
+            </div>
         </>
     );
 }

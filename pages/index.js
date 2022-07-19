@@ -7,7 +7,6 @@ const TrendingDay = () => {
     if (!data) {
         return <h1 className="text-center">Data not found</h1>;
     }
-    console.log(data);
     return <MovieSection title="Trending this day" data={data} />;
 };
 
@@ -38,13 +37,11 @@ const NowPlaying = () => {
 export default function Home() {
     return (
         <Layout title="Moviebase">
-            <div className="w-full max-w-7xl mx-auto px-8">
-                <div className="flex items-stretch flex-col">
-                    <NowPlaying />
-                    <Upcoming />
-                    <TrendingWeek />
-                    <TrendingDay />
-                </div>
+            <div className="flex items-stretch flex-col">
+                <NowPlaying />
+                <Upcoming />
+                <TrendingWeek />
+                <TrendingDay />
             </div>
         </Layout>
     );
