@@ -9,7 +9,13 @@ const Main = () => {
     if (!data) return <DataNotFound text="Nothing to see here" />;
     if (data.length < 1) return <DataNotFound text="No movies in history" />;
 
-    return <MovieSection data={data} title="Films that you watched" />;
+    return (
+        <MovieSection
+            data={data}
+            title="Films that you watched"
+            baseLink="history"
+        />
+    );
 };
 
 export default function History() {

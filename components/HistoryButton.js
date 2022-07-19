@@ -38,7 +38,7 @@ export default function HistoryButton() {
                     }
                     handleSubmit(null);
                 }}
-                text={data ? 'Remove from history' : 'Yeah, I watched this!'}
+                text={data ? 'Remove from history' : 'I watched this!'}
             />
             <HistoryModal
                 isOpen={open}

@@ -20,7 +20,7 @@ const MoviePresentation = ({ data, hist, children }) => {
             <div className="col-span-3">
                 <div className="min-w-[300px] relative">
                     <img
-                        className="object-contain unoptimized rounded-lg border-red border-2"
+                        className="object-contain unoptimized rounded-lg border-bluedark border-[0.25rem]"
                         src={buildImageUrl(data.poster_path, 'w300')}
                         alt="Movie Clip"
                         width="300"

@@ -37,11 +37,7 @@ export default function WatchListButton() {
                     }
                     handleSubmit(null);
                 }}
-                text={
-                    data
-                        ? "Maybe I don't wanna watch this!"
-                        : 'Add to WatchList'
-                }
+                text={data ? 'Remove from watchlist' : 'Add to WatchList'}
             />
             <DataModal
                 isOpen={open}

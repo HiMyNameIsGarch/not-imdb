@@ -20,25 +20,22 @@ const MovieContent = () => {
         );
     }
     if (!history) <ProgressBar />;
-
     return (
         <MoviePresentation data={data} hist={'nobtnbtw'}>
             <div className="my-3">
-                <h1 className="text-3xl">This film is a {history.mark}!</h1>
+                <h1 className="text-3xl">This film is a {history?.mark}!</h1>
             </div>
             <div className="my-3">
                 <Textarea
                     title="My expectations were"
                     placeholder="expectations"
-                    value={history.expectations}
+                    value={history?.expectations}
                     disabled
                 />
-            </div>
-            <div className="my-3">
                 <Textarea
                     title="My review"
                     placeholder="review"
-                    value={history.review}
+                    value={history?.review}
                     disabled
                 />
             </div>

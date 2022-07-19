@@ -27,7 +27,9 @@ export default function DataModal({ isOpen, onClose, onSubmit }) {
 
     return (
         <PopupModal open={isOpen} onClose={onClose}>
-            <div className="text-3xl text-center">Adding to watchlist...</div>
+            <div className="text-3xl text-center text-bluedark font-semibold">
+                Adding to watchlist...
+            </div>
             <form className="flex flex-col" onSubmit={submit}>
                 <Textarea
                     title="Do you have some kind of expectations?"

@@ -47,7 +47,7 @@ export default function DataModal({ isOpen, onClose, onSubmit }) {
 
     return (
         <PopupModal open={isOpen} onClose={onClose}>
-            <div className="text-3xl text-center mb-3">
+            <div className="text-3xl text-center text-bluedark font-semibold mb-3">
                 I heard you finished this movie...
             </div>
             <form className="flex flex-col" onSubmit={submit}>
@@ -59,6 +59,7 @@ export default function DataModal({ isOpen, onClose, onSubmit }) {
                     max="10"
                     onChange={handleChange}
                     defaultValue={state.mark}
+                    className="form-range appearance-none w-full h-[0.35rem] p-0 bg-blue rounded-2xl focus:outline-none focus:ring-0 focus:shadow-none"
                 />
                 <Textarea
                     title="Expectations"

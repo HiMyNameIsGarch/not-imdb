@@ -20,14 +20,14 @@ export default function Modal({ open, onClose, children }) {
     if (isWindow()) {
         return createPortal(
             <div
-                className={`fixed inset-0 z-50 overflow-auto bg-smoke-light flex ${
+                className={`fixed inset-0 z-50 overflow-auto flex ${
                     open ? '' : 'pointer-events-none'
                 }`}
             >
                 {/* backdrop */}
                 <div
-                    className={`fixed inset-0 bg-black ${
-                        open ? 'opacity-50' : 'pointer-events-none opacity-0'
+                    className={`fixed inset-0 bg-bluedark ${
+                        open ? 'opacity-30' : 'pointer-events-none opacity-0'
                     } transition-opacity duration-300 ease-in-out`}
                     onClick={() => {
                         onClose();

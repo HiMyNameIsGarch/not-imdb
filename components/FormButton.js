@@ -1,7 +1,7 @@
 const FormButton = ({ title, onSubmit }) => {
     return (
         <button
-            className="items-center mt-5 text-blue-700 font-semibold"
+            className="items-center text-xl mt-5 text-blue font-semibold"
             onClick={onSubmit}
         >
             {title}
