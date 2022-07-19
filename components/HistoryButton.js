@@ -1,8 +1,9 @@
 import Router, { useRouter } from 'next/router';
 import HistoryModal from 'components/HistoryModal';
 import useSWR, { useSWRConfig } from 'swr';
-import { fetcher } from '../utils/api';
+import { fetcher } from 'utils/api';
 import { useState } from 'react';
+import ActionBtn from 'components/ActionBtn';
 
 export default function HistoryButton() {
     const [open, setOpen] = useState(false);
@@ -29,9 +30,7 @@ export default function HistoryButton() {
 
     return (
         <span className="mr-2">
-            <button
-                className={`bg-transparent text-blue-700 font-semibold py-2 px-4 border border-blue-500 rounded
-                disabled:cursor-not-allowed`}
+            <ActionBtn
                 onClick={() => {
                     if (!data) {
                         setOpen(true);
@@ -39,9 +38,8 @@ export default function HistoryButton() {
                     }
                     handleSubmit(null);
                 }}
-            >
-                {data ? 'Remove from history' : 'Yeah, I watched this!'}
-            </button>
+                text={data ? 'Remove from history' : 'Yeah, I watched this!'}
+            />
             <HistoryModal
                 isOpen={open}
                 onClose={() => setOpen(false)}

@@ -6,7 +6,7 @@ const MenuItem = ({ href, children, className, ...props }) => (
         <button
             as="a"
             variant="link"
-            className={`disabled:cursor-not-allowed disabled:opacity-60 ${
+            className={`disabled:cursor-not-allowed disabled:opacity-60 hover:text-bluewhite ${
                 className ?? ''
             }`}
             {...props}
@@ -18,7 +18,7 @@ const MenuItem = ({ href, children, className, ...props }) => (
 
 const Header = () => {
     return (
-        <header className="p-4 bg-red-500 mb-5">
+        <header className="p-4 bg-red">
             <div className="container mx-auto flex flex-row justify-between items-center text-white">
                 <div className="space-x-7 my-auto flex items-center">
                     <MenuItem href="/">
@@ -31,7 +31,7 @@ const Header = () => {
                 <div>
                     <MenuItem
                         href="/recommandation"
-                        className="border-2 border-red-200 rounded-lg px-3 py-1"
+                        className="border-2 border-bluewhite rounded-lg px-3 py-1 hover:border-blue hover:text-bluewhite"
                     >
                         What to watch
                     </MenuItem>
@@ -49,7 +49,7 @@ export default function Layout({ title, children }) {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
             <Header />
-            <div className="h-screen">
+            <div className="h-screen pt-5">
                 <div className="w-full max-w-7xl mx-auto px-8">{children}</div>
             </div>
         </>

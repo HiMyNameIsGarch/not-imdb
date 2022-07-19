@@ -3,6 +3,7 @@ import Router, { useRouter } from 'next/router';
 import { useState } from 'react';
 import useSWR, { useSWRConfig } from 'swr';
 import { fetcher } from 'utils/api';
+import ActionBtn from './ActionBtn';
 
 export default function WatchListButton() {
     const [open, setOpen] = useState(false);
@@ -28,9 +29,7 @@ export default function WatchListButton() {
     }
     return (
         <span>
-            <button
-                className={`bg-transparent text-blue-700 font-semibold py-2 px-4 border border-blue-500 rounded
-    disabled:cursor-not-allowed`}
+            <ActionBtn
                 onClick={() => {
                     if (!data) {
                         setOpen(true);
@@ -38,9 +37,12 @@ export default function WatchListButton() {
                     }
                     handleSubmit(null);
                 }}
-            >
-                {data ? "Maybe I don't wanna watch this!" : 'Add to WatchList'}
-            </button>
+                text={
+                    data
+                        ? "Maybe I don't wanna watch this!"
+                        : 'Add to WatchList'
+                }
+            />
             <DataModal
                 isOpen={open}
                 onClose={() => setOpen(false)}

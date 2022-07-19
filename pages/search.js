@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import useSWR from 'swr';
 import Layout from 'components/Layout';
 import ProgressBar from 'components/ProgressBar';
+import DataNotFound from 'components/DataNotFound';
 
 function SearchBar() {
     const router = useRouter();
@@ -28,7 +29,7 @@ function SearchBar() {
             <div className="grid grid-cols-12 gap-4 mb-5">
                 <div className="col-span-10">
                     <input
-                        className="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                        className="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-red rounded transition ease-in-out m-0 focus:text-bluedark focus:bg-white focus:border-blue-600 focus:outline-none"
                         type="text"
                         placeholder="Search for a movie..."
                         value={text}
@@ -38,7 +39,7 @@ function SearchBar() {
                 <div className="col-span-2 flex justify-center">
                     <button
                         type="submit"
-                        className="px-6 py-2.5 bg-pink-500 text-white font-normal leading-tight uppercase rounded-full shadow-md hover:bg-green-600 hover:shadow-lg focus:bg-yellow-600 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-yellow-700 active:shadow-lg transition duration-150 ease-in-out"
+                        className="px-6 py-2.5 bg-red text-white font-normal leading-tight uppercase rounded-full shadow-md hover:text-bluedark hover:font-semibold hover:shadow-lg focus:bg-blue focus:shadow-lg focus:outline-none focus:ring-0 active:bg-bluedark active:shadow-lg transition duration-150 ease-in-out"
                     >
                         Movie Time!
                     </button>
@@ -53,7 +54,9 @@ function SearchResults() {
 
     if (!terms) {
         return (
-            <h1>Type some terms, submit and wait for the movies to appear!</h1>
+            <h1 className="text-2xl text-bluedark font-normal">
+                Type some terms, submit and wait for the movies to appear!
+            </h1>
         );
     }
     if (error) {
@@ -66,7 +69,7 @@ function SearchResults() {
         );
     }
     if (!data) return <ProgressBar />;
-    if (!data.results.length) return <h1 className="text-3xl">No results</h1>;
+    if (!data.results.length) return <DataNotFound text="No results" />;
 
     return <MovieSection title="" data={data.results} />;
 }

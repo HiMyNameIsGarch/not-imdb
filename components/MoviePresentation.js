@@ -20,7 +20,7 @@ const MoviePresentation = ({ data, hist, children }) => {
             <div className="col-span-3">
                 <div className="min-w-[300px] relative">
                     <img
-                        className="object-contain unoptimized rounded-lg border-pink-600 border-2"
+                        className="object-contain unoptimized rounded-lg border-red border-2"
                         src={buildImageUrl(data.poster_path, 'w300')}
                         alt="Movie Clip"
                         width="300"
@@ -30,12 +30,12 @@ const MoviePresentation = ({ data, hist, children }) => {
             </div>
             <div className="col-span-9">
                 <div className="grid grid-cols-2 mb-2">
-                    <h1 className="col-span-1 text-3xl font-bold float-left">
+                    <h1 className="col-span-1 text-3xl font-bold float-left text-bluedark">
                         {title}
                     </h1>
                     <div className="col-span-1">
                         <h1
-                            className={`float-right border-pink-500 rounded-xl border-solid p-[0.3rem] text-sm ${
+                            className={`float-right border-bluedark rounded-xl border-solid p-[0.3rem] text-sm text-blue ${
                                 data.release_date ? 'border-2' : 'border-0'
                             }`}
                         >
